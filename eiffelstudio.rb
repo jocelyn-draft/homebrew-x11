@@ -6,7 +6,7 @@ class Eiffelstudio < Formula
   sha1 "e0b9d0c4c10f6191e4b0b2ccbb6efc9345c2f950"
 
   depends_on :x11
-  depends_on "pkg-config => :build"
+  depends_on 'pkg-config' => :build
   depends_on "gtk+"
 
   def install
