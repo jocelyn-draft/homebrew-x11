@@ -5,6 +5,7 @@ class Eiffelstudio < Formula
   url "https://ftp.eiffel.com/pub/download/14.05/eiffelstudio-14.05.tar"
   sha1 "e0b9d0c4c10f6191e4b0b2ccbb6efc9345c2f950"
 
+  depends_on :arch => :x86_64
   depends_on :x11
   depends_on 'pkg-config' => :build
   depends_on "gtk+"
