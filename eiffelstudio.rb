@@ -13,7 +13,7 @@ class Eiffelstudio < Formula
   def install
     system "./compile_exes macosx-x86-64"
     system "./make_images macosx-x86-64"
-    system "mv", "Eiffel_14.05/*", "#{prefix}/"
+    prefix.install Dir["Eiffel_14.05/*"]
   end
 
   test do
