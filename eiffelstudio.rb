@@ -9,21 +9,35 @@ class Eiffelstudio < Formula
   depends_on 'pkg-config' => :build
   depends_on "gtk+"
 
-  def install
+  def ise_platform
     if Hardware::CPU.ppc?
-      platform = "macosx-ppc"
+      return "macosx-ppc"
     elsif MacOS.prefer_64_bit?
-      platform = "macosx-x86-64"
+      return "macosx-x86-64"
     else
-      platform = "macosx-x86"
+      return "macosx-x86"
     end
+  end
+	
 
-    system "./compile_exes", platform
-    system "./make_images", platform
+  def install
+    system "./compile_exes", ise_platform
+    system "./make_images", ise_platform
     prefix.install Dir["Eiffel_14.05/*"]
   end
 
   test do
-    system "#{prefix}/studio/spec/macosx-x86-64/bin/ec", "-version"
+    system "#{prefix}/studio/spec/" + ise_platform + "/bin/ec", "-version"
+  end
+
+  def caveats; <<-EOS.undent
+    Add these to your shell profile:
+      export ISE_EIFFEL=#{prefix}
+      export ISE_PLATFORM=#{ise_platform}
+
+    And add this to your PATH:
+      $ISE_EIFFEL/studio/spec/$ISE_PLATFORM/bin
+      $ISE_EIFFEL/tools/spec/$ISE_PLATFORM/bin
+    EOS
   end
 end
