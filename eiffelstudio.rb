@@ -18,26 +18,40 @@ class Eiffelstudio < Formula
       return "macosx-x86"
     end
   end
-	
+
+    # Create a link in the bin directory
+    # to $ISE_EIFFEL/$root/spec/$ISE_PLATFORM/bin/$exe
+    # that sets up the proper environment before launching $exe.
+  def create_link root, exe, env
+    (bin + exe).write_env_script(prefix+"#{root}/spec/#{ise_platform}/bin/#{exe}", env)
+  end
 
   def install
+      # Compile binaries
     system "./compile_exes", ise_platform
+      # Create installation images
     system "./make_images", ise_platform
+      # Copy files to Cellar
     prefix.install Dir["Eiffel_14.05/*"]
+      # Create bin folder where all symbolic links to Eiffel executables
+      # will be located.
+    bin.mkpath
+      # Setup environment to start Eiffel executables.
+    env = { :ISE_EIFFEL => prefix, :ISE_PLATFORM => ise_platform }
+      # Setup links to Eiffel executables.
+    create_link("studio", "ec", env)
+    create_link("studio", "ecb", env)
+    create_link("studio", "estudio", env)
+    create_link("studio", "finish_freezing", env)
+    create_link("tools", "compile_all", env)
+    create_link("tools", "iron", env)
+    create_link("tools", "syntax_updater", env)
   end
 
   test do
-    system "#{prefix}/studio/spec/" + ise_platform + "/bin/ec", "-version"
-  end
-
-  def caveats; <<-EOS.undent
-    Add these to your shell profile:
-      export ISE_EIFFEL=#{prefix}
-      export ISE_PLATFORM=#{ise_platform}
-
-    And add this to your PATH:
-      $ISE_EIFFEL/studio/spec/$ISE_PLATFORM/bin
-      $ISE_EIFFEL/tools/spec/$ISE_PLATFORM/bin
-    EOS
+      # Simple test to check ec was properly compiled.
+      # More extensive testing requires the full test suite
+      # which is not part of this package.
+    system "#{prefix}/studio/spec/#{ise_platform}/bin/ec", "-version"
   end
 end
