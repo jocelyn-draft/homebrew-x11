@@ -32,6 +32,7 @@ class Eiffelstudio < Formula
     (bin + "compile_all").write_env_script(prefix+"tools/spec/#{ise_platform}/bin/compile_all", env)
     (bin + "iron").write_env_script(prefix+"tools/spec/#{ise_platform}/bin/iron", env)
     (bin + "syntax_updater").write_env_script(prefix+"tools/spec/#{ise_platform}/bin/syntax_updater", env)
+    (bin + "vision2_demo").write_env_script(prefix+"vision2_demo/spec/#{ise_platform}/bin/vision2_demo", env)
   end
 
   test do
