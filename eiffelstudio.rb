@@ -25,13 +25,13 @@ class Eiffelstudio < Formula
     prefix.install Dir["Eiffel_14.05/*"]
     bin.mkpath
     env = { :ISE_EIFFEL => prefix, :ISE_PLATFORM => ise_platform , :PKG_CONFIG_PATH => "/opt/X11/lib/pkgconfig" }
-    (bin + exe).write_env_script(prefix+"studio/spec/#{ise_platform}/bin/ec", env)
-    (bin + exe).write_env_script(prefix+"studio/spec/#{ise_platform}/bin/ecb", env)
-    (bin + exe).write_env_script(prefix+"studio/spec/#{ise_platform}/bin/estudio", env)
-    (bin + exe).write_env_script(prefix+"studio/spec/#{ise_platform}/bin/finish_freezing", env)
-    (bin + exe).write_env_script(prefix+"tools/spec/#{ise_platform}/bin/compile_all", env)
-    (bin + exe).write_env_script(prefix+"tools/spec/#{ise_platform}/bin/iron", env)
-    (bin + exe).write_env_script(prefix+"tools/spec/#{ise_platform}/bin/syntax_updater", env)
+    (bin + "ec").write_env_script(prefix+"studio/spec/#{ise_platform}/bin/ec", env)
+    (bin + "ecb").write_env_script(prefix+"studio/spec/#{ise_platform}/bin/ecb", env)
+    (bin + "estudio").write_env_script(prefix+"studio/spec/#{ise_platform}/bin/estudio", env)
+    (bin + "finish_freezing").write_env_script(prefix+"studio/spec/#{ise_platform}/bin/finish_freezing", env)
+    (bin + "compile_all").write_env_script(prefix+"tools/spec/#{ise_platform}/bin/compile_all", env)
+    (bin + "iron").write_env_script(prefix+"tools/spec/#{ise_platform}/bin/iron", env)
+    (bin + "syntax_updater").write_env_script(prefix+"tools/spec/#{ise_platform}/bin/syntax_updater", env)
   end
 
   test do
